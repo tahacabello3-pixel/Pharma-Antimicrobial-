@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦠 Antimicrobial Agents — Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #1c2333;
+  --border: rgba(139,195,74,0.15);
+  --border-bright: rgba(139,195,74,0.4);
+  --green: #8bc34a;
+  --green-dim: rgba(139,195,74,0.08);
+  --green-glow: rgba(139,195,74,0.2);
+  --teal: #26c6da;
+  --amber: #ffca28;
+  --red: #ef5350;
+  --red-dim: rgba(239,83,80,0.1);
+  --success: #66bb6a;
+  --success-dim: rgba(102,187,106,0.1);
+  --text: #e6edf3;
+  --text-muted: #7d8590;
+  --text-dim: #4d5566;
+  --r: 10px;
+  --r-lg: 16px;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* Subtle grid background */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(139,195,74,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,195,74,0.03) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── HEADER ── */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,17,23,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px;
+  display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;
+}
+
+.logo{
+  font-family:'Crimson Pro',serif;
+  font-size:1.4rem;font-weight:700;
+  color:var(--green);
+  white-space:nowrap;
+  text-shadow:0 0 20px var(--green-glow);
+  flex-shrink:0;
+}
+.logo span{color:var(--text-muted);font-weight:400;font-size:1rem}
+
+.search-wrap{
+  flex:1;min-width:180px;max-width:380px;
+  position:relative;
+}
+.search-wrap input{
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:8px 12px 8px 36px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  outline:none;
+  transition:border-color .2s;
+}
+.search-wrap input:focus{border-color:var(--border-bright)}
+.search-wrap input::placeholder{color:var(--text-dim)}
+.search-icon{
+  position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  font-size:14px;color:var(--text-muted);pointer-events:none;
+}
+
+.progress-wrap{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--text-muted);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.prog-bar{
+  width:100px;height:6px;
+  background:var(--surface2);
+  border-radius:3px;overflow:hidden;
+}
+.prog-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--green),var(--teal));
+  border-radius:3px;
+  transition:width .4s ease;
+}
+.prog-label{font-family:'DM Mono',monospace;color:var(--green);font-size:12px;font-weight:500}
+
+.filter-btns{
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.filter-btn{
+  padding:5px 12px;border-radius:20px;border:1px solid var(--border);
+  background:transparent;color:var(--text-muted);
+  font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;
+  transition:all .2s;white-space:nowrap;
+}
+.filter-btn.active{
+  background:var(--green-dim);border-color:var(--green);color:var(--green);
+}
+.filter-btn:hover{border-color:var(--border-bright);color:var(--text)}
+
+/* ── LAYOUT ── */
+.container{
+  max-width:860px;margin:0 auto;
+  padding:24px 16px 80px;
+  position:relative;z-index:1;
+}
+
+/* ── SECTION BLOCK ── */
+.section-block{
+  margin-bottom:12px;
+  border-radius:var(--r-lg);
+  border:1px solid var(--border);
+  background:var(--surface);
+  overflow:hidden;
+  transition:box-shadow .3s;
+}
+.section-block:hover{box-shadow:0 0 0 1px var(--border-bright),0 8px 30px rgba(0,0,0,.3)}
+.section-block.hidden{display:none}
+
+.section-header{
+  padding:16px 20px;
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;
+  user-select:none;
+  border-bottom:1px solid transparent;
+  transition:background .2s, border-color .2s;
+}
+.section-block.open .section-header{
+  border-bottom-color:var(--border);
+  background:rgba(139,195,74,0.04);
+}
+.section-header:hover{background:var(--green-dim)}
+
+.sec-icon{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--green-dim);
+  border:1px solid var(--border-bright);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.sec-title-wrap{flex:1}
+.sec-title{
+  font-family:'Crimson Pro',serif;
+  font-size:1.15rem;font-weight:700;color:var(--text);
+  line-height:1.3;
+}
+.sec-badge{
+  font-size:11px;font-family:'DM Mono',monospace;
+  color:var(--text-muted);margin-top:1px;
+}
+.sec-chevron{
+  font-size:12px;color:var(--text-dim);
+  transition:transform .3s;flex-shrink:0;
+}
+.section-block.open .sec-chevron{transform:rotate(180deg)}
+
+/* ── CONTENT PANEL ── */
+.section-body{display:none;padding:0}
+.section-block.open .section-body{display:block}
+
+.content-panel{
+  padding:20px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.015);
+}
+
+.content-panel h3{
+  font-family:'Crimson Pro',serif;
+  font-size:1.05rem;font-weight:700;
+  color:var(--teal);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.content-panel h3::before{
+  content:'';display:inline-block;
+  width:3px;height:16px;border-radius:2px;
+  background:var(--teal);flex-shrink:0;
+}
+
+.content-panel p{
+  color:rgba(230,237,243,0.82);
+  margin-bottom:8px;font-size:14.5px;
+  line-height:1.75;
+}
+.content-panel ul,.content-panel ol{
+  padding-left:20px;margin-bottom:8px;
+}
+.content-panel li{
+  color:rgba(230,237,243,0.82);
+  font-size:14.5px;margin-bottom:4px;
+  line-height:1.7;
+}
+.content-panel strong{
+  color:var(--amber);font-weight:600;
+}
+.content-panel em{color:var(--green);font-style:normal;font-weight:500}
+
+.drug-tag{
+  display:inline-block;
+  background:rgba(38,198,218,0.1);
+  border:1px solid rgba(38,198,218,0.25);
+  color:var(--teal);
+  border-radius:5px;padding:1px 7px;
+  font-size:12.5px;font-family:'DM Mono',monospace;
+  margin:1px 2px;
+}
+.pathway-box{
+  background:rgba(139,195,74,0.05);
+  border:1px solid var(--border-bright);
+  border-radius:8px;padding:12px 16px;
+  margin:12px 0;font-family:'DM Mono',monospace;
+  font-size:13px;color:var(--green);
+  line-height:2;
+}
+
+/* ── Q&A PANEL ── */
+.qa-panel{padding:16px 20px 20px}
+
+.qa-header{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.qa-header::before{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,var(--border),transparent);
+}
+.qa-header span{
+  background:var(--surface2);padding:3px 10px;border-radius:20px;
+  border:1px solid var(--border);
+}
+
+.q-card{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  margin-bottom:10px;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.q-card:hover{border-color:var(--border-bright)}
+
+.q-head{
+  padding:12px 16px;
+  cursor:pointer;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.q-num{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--text-dim);flex-shrink:0;padding-top:2px;min-width:24px;
+}
+.q-type-badge{
+  font-size:10px;font-family:'DM Mono',monospace;
+  padding:2px 7px;border-radius:4px;
+  flex-shrink:0;margin-top:2px;
+}
+.badge-mcq{background:rgba(38,198,218,0.1);border:1px solid rgba(38,198,218,0.3);color:var(--teal)}
+.badge-tf{background:rgba(255,202,40,0.1);border:1px solid rgba(255,202,40,0.3);color:var(--amber)}
+
+.q-text{
+  font-size:14px;color:var(--text);line-height:1.55;flex:1;
+}
+.q-toggle{font-size:11px;color:var(--text-dim);flex-shrink:0;transition:transform .25s;padding-top:3px}
+.q-card.open .q-toggle{transform:rotate(180deg)}
+
+.q-body{display:none;padding:0 16px 14px;padding-top:2px}
+.q-card.open .q-body{display:block}
+
+.q-options{list-style:none;margin-bottom:10px}
+.q-options li{
+  padding:6px 10px;margin-bottom:4px;
+  border-radius:6px;font-size:13.5px;
+  display:flex;align-items:flex-start;gap:8px;
+  color:rgba(230,237,243,0.75);
+  border:1px solid transparent;
+}
+.q-options li.correct-opt{
+  background:var(--success-dim);
+  border-color:rgba(102,187,106,0.35);
+  color:var(--success);font-weight:500;
+}
+.opt-letter{
+  font-family:'DM Mono',monospace;font-size:12px;
+  flex-shrink:0;padding-top:1px;
+  width:18px;
+}
+.correct-opt .opt-letter{color:var(--success)}
+
+.q-answer-line{
+  font-size:12.5px;
+  color:var(--text-muted);
+  font-family:'DM Mono',monospace;
+  padding-top:4px;
+  border-top:1px solid var(--border);
+}
+.q-answer-line strong{color:var(--success)}
+
+/* ── ANSWER TOGGLE BUTTONS ── */
+.show-answers-btn{
+  background:none;border:1px solid var(--border);
+  border-radius:6px;padding:4px 10px;
+  font-size:12px;color:var(--text-muted);
+  font-family:'DM Sans',sans-serif;cursor:pointer;
+  float:right;margin-top:-2px;
+  transition:all .2s;
+}
+.show-answers-btn:hover{border-color:var(--green);color:var(--green)}
+.show-answers-btn.revealed{border-color:var(--green);color:var(--green);background:var(--green-dim)}
+
+/* ── PROGRESS BADGE on sections ── */
+.sec-progress{
+  font-size:11px;font-family:'DM Mono',monospace;
+  color:var(--text-dim);background:var(--surface2);
+  padding:2px 8px;border-radius:10px;border:1px solid var(--border);
+  flex-shrink:0;
+}
+
+/* ── MARKS ── */
+.mark-correct{background:rgba(102,187,106,0.15);border-radius:3px;padding:0 2px}
+.mark-wrong{background:rgba(239,83,80,0.12);border-radius:3px;padding:0 2px}
+
+/* ── TOC ── */
+.toc{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:20px;
+  margin-bottom:20px;
+}
+.toc-title{
+  font-family:'Crimson Pro',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--green);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.toc-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:6px;
+}
+.toc-item{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 10px;border-radius:8px;
+  border:1px solid var(--border);
+  color:var(--text-muted);font-size:13px;
+  text-decoration:none;
+  transition:all .2s;cursor:pointer;
+}
+.toc-item:hover{border-color:var(--border-bright);color:var(--text);background:var(--green-dim)}
+.toc-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;
+}
+.stat-card{
+  flex:1;min-width:100px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px 16px;
+  text-align:center;
+}
+.stat-num{
+  font-family:'Crimson Pro',serif;
+  font-size:2rem;font-weight:700;
+  color:var(--green);line-height:1;
+}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:3px}
+
+/* ── EXPAND ALL BTN ── */
+.toolbar{
+  display:flex;gap:8px;margin-bottom:16px;
+  flex-wrap:wrap;align-items:center;
+}
+.toolbar-btn{
+  padding:7px 14px;border-radius:8px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--text-muted);font-family:'DM Sans',sans-serif;
+  font-size:13px;cursor:pointer;transition:all .2s;
+}
+.toolbar-btn:hover{border-color:var(--border-bright);color:var(--text);background:var(--green-dim)}
+
+/* ── EMPTY STATE ── */
+.empty{text-align:center;padding:40px 20px;color:var(--text-muted);display:none}
+.empty.show{display:block}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:3px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .site-header{gap:8px}
+  .progress-wrap{display:none}
+  .stat-num{font-size:1.6rem}
+  .toc-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">🦠 Antimicrobial<span>Agents</span></div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search content or questions…">
+  </div>
+  <div class="filter-btns">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="content">Content</button>
+    <button class="filter-btn" data-filter="mcq">MCQ Only</button>
+    <button class="filter-btn" data-filter="tf">T/F Only</button>
+  </div>
+  <div class="progress-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    <span class="prog-label" id="progLabel">0%</span>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="container" id="mainContainer">
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-num">11</div><div class="stat-label">Topics</div></div>
+    <div class="stat-card"><div class="stat-num" id="totalQ">380+</div><div class="stat-label">Questions</div></div>
+    <div class="stat-card"><div class="stat-num" id="openedCount">0</div><div class="stat-label">Sections Read</div></div>
+    <div class="stat-card"><div class="stat-num" id="revealedCount">0</div><div class="stat-label">Answers Checked</div></div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">📋 Table of Contents</div>
+    <div class="toc-grid" id="tocGrid"></div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <button class="toolbar-btn" onclick="expandAll()">⊞ Expand All</button>
+    <button class="toolbar-btn" onclick="collapseAll()">⊟ Collapse All</button>
+    <button class="toolbar-btn" onclick="revealAllAnswers()">✓ Show All Answers</button>
+    <button class="toolbar-btn" onclick="resetProgress()">↺ Reset Progress</button>
+  </div>
+
+  <!-- CONTENT will be injected here -->
+  <div id="contentArea"></div>
+  <div class="empty" id="emptyState">No results found for your search.</div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA — CONTENT SECTIONS
+// ══════════════════════════════════════════════════════
+const SECTIONS = [
+  {
+    id:'intro',
+    icon:'🧬',
+    title:'Introduction to Antimicrobial Agents',
+    badge:'Definition · Classification · Resistance',
+    content:`
+<h3>What Are Antimicrobial Agents?</h3>
+<p>Antimicrobial agents are compounds effective in the <strong>treatment of infections AND PROPHYLAXIS</strong> because of their <strong>selective toxicity</strong> — the ability to kill or inhibit an invading microorganism without harming the cells of the host. This selective toxicity depends on the existence of <strong>biochemical differences</strong> between the parasite and host cells.</p>
+
+<h3>Sources of Antibiotics</h3>
+<p><strong>1. Natural sources</strong> — Substances produced by various species of microorganisms (Bacteria, Fungi or Actinomycetes) that suppress the growth of other microorganisms. Semi-synthetic examples: <span class="drug-tag">Penicillins</span> <span class="drug-tag">Cephalosporins</span></p>
+<p><strong>2. Chemical sources</strong> — Synthetic antibacterial agents such as <span class="drug-tag">Sulphonamides</span> <span class="drug-tag">Quinolones</span></p>
+
+<h3>Bacteriostatic vs Bactericidal</h3>
+<p><strong>Bacteriostatic</strong>: Arrest the growth and replication of bacteria, limiting spread of infection while the body's immune system attacks and eliminates the pathogens. Example: <em>Sulphonamides</em></p>
+<p><strong>Bactericidal</strong>: These agents kill the bacteria. Example: <em>Penicillins</em></p>
+
+<h3>Factors Affecting Selection of an Antimicrobial Agent</h3>
+<p><strong>PARASITE FACTORS:</strong></p>
+<ul>
+  <li>Identity of the microorganism</li>
+  <li>Susceptibility of the microorganism to the antimicrobial agent</li>
+</ul>
+<p><strong>HOST FACTORS:</strong></p>
+<ul>
+  <li>Previous exposure of the patient to antibiotics</li>
+  <li>Age of the patient</li>
+  <li>Renal and hepatic function</li>
+  <li>Site of infection</li>
+  <li>Administration of other drugs</li>
+  <li>Pregnancy</li>
+  <li>Immunity status of the patient</li>
+</ul>
+
+<h3>Resistance to Antibiotics</h3>
+<p>Resistance of bacteria to antibiotics may develop as the organism adapts genetically to changes in their environment. Resistance develops due to several mechanisms:</p>
+<ul>
+  <li><strong>a)</strong> Production of an enzyme that inactivates the drug — e.g. production of <strong>β-lactamases (PENICILLINASES)</strong> which cleave the β-lactam ring of penicillins and cephalosporins, or <strong>AMIDASIS</strong></li>
+  <li><strong>b)</strong> Alteration of drug-sensitive site or drug binding site in bacterial ribosome — e.g. resistance of <em>Erythromycin</em></li>
+  <li><strong>c)</strong> Decreased drug accumulation in bacterium (drug concentration) — e.g. resistance to <em>Tetracyclines</em></li>
+  <li><strong>d)</strong> Development of alternative pathway that bypasses the reaction inhibited by antibiotics — e.g. stimulate the production of dihydropteroate synthase with low affinity for Sulphonamides</li>
+</ul>
+
+<h3>Classification of Antimicrobial Agents</h3>
+<ol>
+  <li>The <strong>antimetabolites</strong> — including Sulphonamides and Trimethoprim, which block folate synthesis</li>
+  <li>Agents that inhibit <strong>cell wall synthesis</strong> — including Penicillins, Cephalosporins, Vancomycin and Bacitracin</li>
+  <li>Agents that inhibit <strong>protein synthesis</strong> — including Chloramphenicol, Tetracyclines, Erythromycin, Clindamycin and the Aminoglycosides</li>
+  <li>Agents that affect <strong>nucleic acid metabolism</strong> — such as Rifampin and Quinolones</li>
+  <li>Agents that affect <strong>permeability of the cell membrane</strong> — e.g. the detergents Polymixin B and Colistimethate</li>
+</ol>
+`
+  },
+  {
+    id:'sulphonamides',
+    icon:'🔬',
+    title:'Sulphonamides',
+    badge:'Antimetabolites — Folate Pathway',
+    content:`
+<h3>Overview</h3>
+<p>Sulphonamides are usually used as their <strong>sodium salts</strong> which are readily soluble in water.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+  <li><span class="drug-tag">Sulphadiazine</span> <span class="drug-tag">Sulphadimidine</span> <span class="drug-tag">Sulphamethoxazole</span> — Short acting, well absorbed from GIT</li>
+  <li><span class="drug-tag">Sulfametopyrazine</span> — Long acting, well absorbed from GIT</li>
+  <li><span class="drug-tag">Sulphasalazine</span> — Poorly absorbed from GIT</li>
+  <li><span class="drug-tag">Sulphamethoxazole</span> is often given in combination with Trimethoprim (<em>co-trimoxazole</em>)</li>
+</ul>
+
+<h3>Mechanism of Action</h3>
+<p>Being <strong>structural analogues to p-aminobenzoic acid (pABA)</strong>, sulphonamides <strong>competitively inhibit dihydropteroate synthase</strong> — the bacterial enzyme responsible for incorporation of pABA into dihydropteroic acid (immediate precursor of folic acid) — thus inhibit the formation of folic acid.</p>
+<p>Sulphonamides do <strong>not affect mammalian cells</strong> by this mechanism, because mammals obtain folic acid from their diet and do not need to synthesize it.</p>
+
+<div class="pathway-box">
+pABA
+  ↓ ← [Sulphonamides block here] Dihydropteroate Synthase
+Folate
+  ↓
+Dihydrofolate
+  ↓ ← [Trimethoprim blocks here] Dihydrofolate Reductase
+Tetrahydrofolate
+  ↓
+Synthesis of Thymidine & Purines → DNA
+</div>
+
+<p>They are <strong>Bacteriostatic</strong>. Their action is diminished in the presence of puss cells and tissue breakdown (which contain thymidine and purines that bacteria use to bypass the need for folic acid).</p>
+
+<h3>Clinical Uses</h3>
+<ul>
+  <li>Acute urinary tract infection</li>
+  <li>Respiratory infections</li>
+  <li>Some sexually transmitted infections</li>
+  <li>Combined with Trimethoprim (co-trimoxazole) for <strong>Pneumocystis carinii pneumonia</strong></li>
+  <li>Combined with Pyrimethamine for <strong>drug-resistant malaria</strong> and for <strong>toxoplasmosis</strong></li>
+  <li><span class="drug-tag">Sulphasalazine</span> (sulphapyridine-salicylate combination) — used in <strong>inflammatory bowel disease</strong> and as an anti-inflammatory drug</li>
+  <li><span class="drug-tag">Silver sulphadiazine</span> — used <strong>topically for infected burns</strong></li>
+</ul>
+
+<h3>Pharmacokinetics</h3>
+<p>Most sulphonamides are readily absorbed from GIT. They are <strong>not given topically</strong> because of the risk of allergy — except for silver sulphadiazine (used for infected burns).</p>
+<p>They pass into inflammatory exudates and <strong>cross the placental barrier</strong>. They are metabolized in the liver and excreted mainly in urine.</p>
+
+<h3>Unwanted Effects</h3>
+<p><strong>Mild to moderate:</strong> Nausea and vomiting, headache and mental depression, <em>cyanosis</em> (less alarming than it looks).</p>
+<p><strong>Serious:</strong> Hepatitis, hypersensitivity reactions (rash, fever, may cause anaphylactic reaction), bone marrow depression, and <strong>crystalluria</strong> (due to precipitation of acetylated metabolites in urine) — can be prevented by giving plenty of fluids and keeping the urine alkaline.</p>
+`
+  },
+  {
+    id:'trimethoprim',
+    icon:'⚗️',
+    title:'Trimethoprim',
+    badge:'Antimetabolite — Dihydrofolate Reductase Inhibitor',
+    content:`
+<h3>Overview</h3>
+<p>Trimethoprim is a <strong>Bacteriostatic agent</strong> active against most bacterial pathogens.</p>
+
+<h3>Mechanism of Action</h3>
+<p>The structure of trimethoprim resembles the <strong>pteridine ring of folic acid</strong>; it confuses the enzyme <strong>dihydrofolate reductase</strong>, resulting in inhibition of folate synthesis.</p>
+
+<h3>Clinical Uses</h3>
+<ul>
+  <li>Urinary tract and respiratory infections</li>
+  <li>Combined with Sulphamethoxazole (<strong>co-trimoxazole</strong>) for infection with <em>Pneumocystis carinii</em>, which causes pneumonia in patients with AIDS</li>
+</ul>
+
+<h3>Pharmacokinetics</h3>
+<p>When given orally, trimethoprim is <strong>fully absorbed from GIT</strong> (good water solubility) and is <strong>widely distributed</strong> throughout the tissues and body fluids.</p>
+<p>Since trimethoprim is a <strong>weak base</strong>, its elimination by kidneys <strong>increases by decreasing urinary pH</strong>.</p>
+
+<h3>Unwanted Effects</h3>
+<p>Nausea, vomiting, and skin rashes. <strong>Folate deficiency with resultant megaloblastic anaemia</strong> (B12 deficiency) may also occur — can be prevented by giving folic acid.</p>
+`
+  },
+  {
+    id:'penicillins',
+    icon:'💊',
+    title:'Penicillins',
+    badge:'Beta-Lactam — Cell Wall Synthesis Inhibitor',
+    content:`
+<h3>Overview</h3>
+<p>Penicillins are a group of widely used <strong>bactericidal</strong> antibiotics; they are the <strong>first choice treatment</strong> for many infections. They act by inhibiting the bacterial cell wall synthesis leading to lysis of the bacterium.</p>
+
+<h3>Resistance</h3>
+<p>Resistance to penicillins develops due to many causes; the most important is <strong>production of β-lactamase enzyme</strong> by the bacteria. This can be solved by addition of <strong>β-lactamase inhibitors</strong> such as <span class="drug-tag">clavulanic acid</span>, <span class="drug-tag">sulbactam</span>, or <span class="drug-tag">tazobactam</span>.</p>
+<p>Example of such combination: <strong>Augmentin</strong> (Amoxicillin + Clavulanic acid)</p>
+
+<h3>Pharmacokinetics</h3>
+<p>Oral absorption depends on <strong>stability in acid</strong> and adsorption to food in the gut:</p>
+<ul>
+  <li><strong>Acid stable</strong> (given orally, absorption delayed by food): <span class="drug-tag">Penicillin V</span>, <span class="drug-tag">Ampicillin</span>, <span class="drug-tag">Amoxicillin</span></li>
+  <li><strong>Acid unstable</strong>: given by IM or IV routes</li>
+</ul>
+<p>Penicillins are widely distributed in body fluids, passing into joints, pleural and pericardial cavities, bile, saliva, milk, and can cross placenta. They are <strong>lipid insoluble</strong> — do not cross BBB unless meninges are inflamed.</p>
+<p>Elimination is mainly renal. <strong>Nafcillin</strong> can be given in renal failure because 80% is excreted in bile.</p>
+<p><strong>Benzyl penicillin</strong> has a short half-life and needs frequent dosing. <strong>Procaine-penicillin</strong> and <strong>benzathine penicillin</strong> are slow release preparations.</p>
+<p><strong>Probenecid</strong> reduces tubular secretion, hence raises plasma concentration and prolongs action of penicillin.</p>
+
+<h3>Unwanted Effects</h3>
+<p>The most serious side effect is <strong>hypersensitivity reaction</strong> — ranging from skin rashes and fever to anaphylactic shock (may be fatal).</p>
+<p>Broad spectrum penicillins may cause alteration of gut flora leading to <strong>superinfection</strong> by microorganisms not sensitive to penicillins.</p>
+`
+  },
+  {
+    id:'cephalosporins',
+    icon:'🏥',
+    title:'Cephalosporins',
+    badge:'Beta-Lactam — Generations I–IV',
+    content:`
+<h3>Overview</h3>
+<p>Cephalosporins were first obtained from <em>Cephalosporium fungus</em> extract. They are <strong>β-lactam antibiotics</strong>, closely related to penicillins in structure and effect.</p>
+<p>They act by the same mechanism as penicillin: <strong>inhibition of cell wall synthesis</strong>. They are <strong>more resistant to β-lactamases</strong> than penicillins.</p>
+<p>They are <strong>ineffective</strong> against methicillin-resistant Staphylococcus aureus (MRSA), Listeria monocytogenes, Clostridium difficile, and enterococci.</p>
+
+<h3>First Generation</h3>
+<p><span class="drug-tag">Cephalexin</span> <span class="drug-tag">Cephradine</span> <span class="drug-tag">Cefazolin</span> <span class="drug-tag">Cefadroxil</span> <span class="drug-tag">Cephalothin</span> <span class="drug-tag">Cephapirin</span></p>
+<ul>
+  <li>Active against gram +ve cocci including pneumococci and streptococci</li>
+  <li>Active against gram –ve bacteria such as E. coli and Klebsiella pneumoniae</li>
+  <li>Do <strong>not</strong> penetrate BBB</li>
+  <li>IV drugs are drugs of choice for <strong>prophylaxis against infections during surgery</strong></li>
+</ul>
+
+<h3>Second Generation</h3>
+<p><span class="drug-tag">Cefuroxime</span> <span class="drug-tag">Cefaclor</span> <span class="drug-tag">Cefamandole</span> <span class="drug-tag">Cefonicid</span> <span class="drug-tag">Cefmetazole</span> <span class="drug-tag">Cefotetan</span> <span class="drug-tag">Cefoxitin</span></p>
+<ul>
+  <li>Greater activity against gram –ve organisms than first generation; weaker against gram +ve</li>
+  <li>Used for sinusitis and otitis media in patients who didn't respond to amoxicillin/ampicillin</li>
+  <li><strong>Cefuroxime</strong> crosses BBB — can treat meningitis; also used for community-acquired bronchitis or pneumonia in elderly/immunocompromised patients</li>
+</ul>
+
+<h3>Third Generation</h3>
+<p><span class="drug-tag">Cefotaxime</span> <span class="drug-tag">Ceftriaxone</span> <span class="drug-tag">Ceftazidime</span> <span class="drug-tag">Cefoperazone</span></p>
+<ul>
+  <li>Enhanced activity against gram –ve bacilli; effective against most enteric organisms plus Serratia marcescens</li>
+  <li><strong>Ceftazidime</strong> has activity against Pseudomonas aeruginosa</li>
+</ul>
+
+<h3>Fourth Generation</h3>
+<p><span class="drug-tag">Cefepime</span></p>
+<ul>
+  <li>Wide antibacterial spectrum — active against streptococci and methicillin-resistant staphylococci</li>
+  <li>Active against aerobic gram –ve organisms: Enterobacter, E. coli, Klebsiella pneumoniae, Proteus mirabilis, Pseudomonas aeruginosa</li>
+</ul>
+
+<h3>Pharmacokinetics</h3>
+<p>Some given orally, most given parenterally (IM or IV). Widely distributed in body, crossing pleural, pericardial, and joint fluids; cross the placenta.</p>
+<p><strong>Cross BBB</strong> (for meningitis): Cefoperazone, Cefotaxime, <strong>Cefuroxime</strong>, <strong>Ceftriaxone</strong>, Latamoxef. Elimination mainly through kidney; some through bile.</p>
+
+<h3>Unwanted Effects</h3>
+<p><strong>Hypersensitivity reaction</strong> — cross-sensitivity with penicillins.</p>
+`
+  },
+  {
+    id:'carbapenems',
+    icon:'⚡',
+    title:'Carbapenems & Monobactams',
+    badge:'Beta-Lactam — Broad Spectrum',
+    content:`
+<h3>A) Carbapenems</h3>
+<p><span class="drug-tag">Imipenem</span> is an example. It has a <strong>very broad spectrum</strong> of antimicrobial activity against many aerobic and anaerobic gram +ve and –ve organisms including Listeria, Pseudomonas, and most Enterobacteriaceae.</p>
+<p>They are <strong>more resistant to β-lactamases</strong> than penicillins and cephalosporins.</p>
+<p>Imipenem is given <strong>intravenously (IV)</strong>. In the kidney it is partly broken down by <strong>dehydropeptidase enzyme</strong>, therefore it is given in combination with <strong>Cilastatin</strong> (a specific inhibitor of this enzyme).</p>
+<p><strong>Unwanted effects:</strong> Nausea and vomiting, nephrotoxicity may occur with high doses.</p>
+
+<h3>B) Monobactams</h3>
+<p><span class="drug-tag">Aztreonam</span> is an example. It resists most β-lactamases. It is active <strong>only against gram –ve aerobic rods</strong> including Pseudomonas, Neisseria meningitides, and Haemophilus influenzae.</p>
+<p>It is given <strong>parenterally</strong>.</p>
+<p><strong>Unwanted effects:</strong> Aztreonam is relatively non-toxic but may cause phlebitis, skin rashes, and sometimes abnormal liver function test.</p>
+`
+  },
+  {
+    id:'vancomycin',
+    icon:'🛡️',
+    title:'Vancomycin',
+    badge:'Cell Wall Synthesis — Good against MRSA',
+    content:`
+<h3>Overview</h3>
+<p>Vancomycin is a <strong>polypeptide antibiotic</strong> — a <strong>bactericidal agent</strong> acting by inhibiting cell wall synthesis. It is very important due to its effectiveness against <strong>multiple drug resistant organisms</strong> such as methicillin-resistant staphylococci (MRSA).</p>
+<p>It has a <strong>synergistic action with aminoglycoside antibiotics</strong> against some organisms which vancomycin alone does not kill.</p>
+
+<h3>Pharmacokinetics</h3>
+<p>It is <strong>not absorbed orally</strong>; it is given orally only for the treatment of gastrointestinal infections.</p>
+<p>It is given <strong>IV by slow infusion</strong> to avoid histamine-induced redness of the skin.</p>
+<p>Widely distributed in the body. Elimination is <strong>renal</strong>.</p>
+
+<h3>Clinical Uses</h3>
+<ul>
+  <li>Treatment of <strong>pseudomembranous colitis</strong></li>
+  <li>Treatment of multi-resistant staphylococcal infections</li>
+  <li>Severe staphylococcal infections in patients allergic to penicillins and cephalosporins</li>
+  <li>Some cases of <strong>endocarditis</strong></li>
+</ul>
+
+<h3>Unwanted Effects</h3>
+<p>Fever, rash, local phlebitis, <strong>ototoxicity</strong>, <strong>nephrotoxicity</strong>, and hypersensitivity reaction.</p>
+`
+  },
+  {
+    id:'tetracyclines',
+    icon:'🔭',
+    title:'Tetracyclines',
+    badge:'Protein Synthesis Inhibitors — Bacteriostatic',
+    content:`
+<h3>Examples</h3>
+<p><span class="drug-tag">Tetracycline</span> <span class="drug-tag">Chlortetracycline</span> <span class="drug-tag">Oxytetracycline</span> <span class="drug-tag">Doxycycline</span> <span class="drug-tag">Minocycline</span></p>
+<p>They are <strong>Bacteriostatic agents</strong> with a very wide spectrum of activity including gram +ve and –ve bacteria, mycoplasma, rickettsia, Chlamydia, some spirochetes, and some protozoa (e.g. amoeba).</p>
+<p>Many bacterial strains have become resistant due to development of <strong>energy dependent efflux mechanisms</strong> and <strong>alteration of the drug binding site</strong>.</p>
+
+<h3>Pharmacokinetics</h3>
+<p>All are given orally (can be given parenterally); absorption is irregular and <strong>improved in the absence of food</strong>.</p>
+<p>Tetracyclines <strong>chelate metal ions</strong> forming non-absorbable complex — absorption is <strong>decreased</strong> in the presence of <strong>milk, antacids, and iron preparations</strong>.</p>
+<p>Widely distributed in most body fluids; cross placenta and appear in milk. Excreted in urine and bile — except <strong>Doxycycline</strong> which is excreted largely in the <strong>GIT</strong>.</p>
+
+<h3>Unwanted Effects</h3>
+<p>GI disturbances, photosensitivity, tooth discoloration in children, superinfection. <strong>Minocycline</strong> may cause <strong>vestibular disturbances</strong>.</p>
+<p>Used for: Brucellosis, Chlamydial infections, Lyme disease, Rickettsial infections, broad spectrum coverage.</p>
+`
+  },
+  {
+    id:'chloramphenicol_amino',
+    icon:'🧪',
+    title:'Chloramphenicol & Aminoglycosides',
+    badge:'Protein Synthesis Inhibitors',
+    content:`
+<h3>B) Chloramphenicol</h3>
+<p>Rapidly and completely absorbed when given orally. Can be given parenterally. Widely distributed in body tissues and fluids including <strong>CSF</strong>. Excreted in urine.</p>
+<p>Resistance is due to production of enzyme <strong>Chloramphenicol acetyltransferase</strong> by bacteria.</p>
+<p><strong>Clinical uses:</strong> Confined to serious infections such as H. influenzae resistant to other drugs, meningitis in patients allergic to penicillin and cephalosporins. Can be used topically for skin infections and bacterial conjunctivitis.</p>
+<p><strong>Unwanted effects:</strong> <strong>Aplastic anaemia</strong> (Pancytopenia), Gray baby syndrome at toxic doses.</p>
+
+<h3>C) Aminoglycosides</h3>
+<p>Examples: <span class="drug-tag">Gentamycin</span> <span class="drug-tag">Streptomycin</span> <span class="drug-tag">Amikacin</span> <span class="drug-tag">Tobramycin</span> <span class="drug-tag">Kanamycin</span> <span class="drug-tag">Neomycin</span></p>
+<p><strong>Bactericidal agents</strong> acting by interfering with bacterial protein synthesis.</p>
+<p>Resistance: decreased uptake, alteration of binding site, inactivation by microbial enzymes.</p>
+<p>Effective against many gram –ve and some gram +ve organisms. <strong>Streptomycin</strong> is also effective against Mycobacterium tuberculosis.</p>
+
+<h3>Pharmacokinetics</h3>
+<p><strong>Highly polar</strong> — NOT absorbed from GIT. Given by IV or IM route. Do not enter cells nor cross BBB; may cross placenta.</p>
+<p>High concentrations accumulate in <strong>renal cortex</strong> and <strong>endolymph of the inner ear</strong> — explains their <strong>nephrotoxicity</strong> and <strong>ototoxicity</strong>. All excreted in urine.</p>
+
+<h3>Clinical Uses</h3>
+<ul>
+  <li><strong>Streptomycin</strong>: Tuberculosis, plague, tularemia; in combination with penicillin for endocarditis</li>
+  <li><strong>Kanamycin and Neomycin</strong>: Used only topically due to serious side effects</li>
+  <li><strong>Gentamycin</strong>: Severe infections (pneumonia, sepsis), topically for infected wounds/burns/conjunctivitis; combined with amoxicillin for prevention of infective endocarditis</li>
+</ul>
+
+<h3>Unwanted Effects</h3>
+<ul>
+  <li>Dose-related <strong>ototoxicity</strong> (risk increased with loop diuretics or cisplatin)</li>
+  <li><strong>Nephrotoxicity</strong> — ranging from mild renal impairment to severe tubular necrosis</li>
+  <li><strong>Neuromuscular paralysis</strong> — due to inhibition of Ca²⁺ entry to nerve cell (necessary for acetylcholine release)</li>
+</ul>
+`
+  },
+  {
+    id:'macrolides_clindamycin',
+    icon:'🌀',
+    title:'Macrolides & Clindamycin',
+    badge:'Protein Synthesis Inhibitors',
+    content:`
+<h3>D) Macrolides</h3>
+<p>Group of antibiotics with a macrocyclic lactone structure. <strong>Bacteriostatic or bactericidal</strong> depending on the <em>dose and type of microorganism</em>. They act by inhibiting bacterial protein synthesis.</p>
+<p>Examples: <span class="drug-tag">Erythromycin</span> <span class="drug-tag">Clarithromycin</span> <span class="drug-tag">Azithromycin</span></p>
+
+<p><strong>Erythromycin</strong>: Has similar antimicrobial spectrum to penicillin — used as alternative in penicillin-sensitive patients. Drug of choice for urogenital infections caused by <em>Chlamydia</em> and for <em>Corynebacterium diphtheriae</em> infection.</p>
+<p><strong>Clarithromycin</strong>: Similar activity to erythromycin but also effective against H. influenzae, Mycobacterium (in immunocompromised/elderly), useful in <strong>leprosy and Lyme disease</strong>.</p>
+<p><strong>Azithromycin</strong>: Less active against gram +ve than erythromycin but active against H. influenzae and more active against <em>Legionella</em>. Excellent effect against <em>Toxoplasma gondii</em>.</p>
+
+<h3>Pharmacokinetics (Macrolides)</h3>
+<p>Administered orally — erythromycin is less acid stable than other members; erythromycin can also be given parenterally. Diffuse readily to most tissues including placenta but <strong>cannot penetrate BBB</strong>.</p>
+<p>They affect <strong>cytochrome P-450 system</strong> — increase the half-life of: <strong>warfarin, theophylline, digoxin, carbamazepine, cyclosporine</strong>.</p>
+<p><strong>Unwanted effects:</strong> Gastrointestinal disturbances. Erythromycin may cause hypersensitivity reaction, <strong>transient hearing disturbances</strong>, and rarely cholestatic jaundice.</p>
+
+<h3>E) Clindamycin</h3>
+<p>Antibacterial agent acting by inhibiting bacterial protein synthesis. Used for infections caused by <strong>anaerobic bacteria</strong> such as <em>Bacteroides fragilis</em> (causes abdominal infections from trauma). Also effective against non-enterococcal gram +ve cocci. Used for prevention of infective endocarditis and treatment of common <strong>orofacial infections</strong> in patients allergic to penicillins.</p>
+<p><strong>Resistance:</strong> Reduced accumulation, alteration of drug-sensitive site, production of inactivating enzymes.</p>
+<p><strong>Pharmacokinetics:</strong> Well absorbed from GIT. Widely distributed into all body fluids <strong>except CSF</strong> (adequate levels not achieved even when meninges are inflamed). Penetration into bone occurs even in absence of inflammation. Metabolized by liver; excreted in bile and urine.</p>
+<p><strong>Unwanted effects:</strong> Skin rashes. Most serious side effect is <strong>pseudomembranous colitis</strong> caused by overgrowth of Clostridium difficile — controlled by oral metronidazole or vancomycin. Impaired liver function has been reported.</p>
+`
+  },
+  {
+    id:'quinolones_metronidazole',
+    icon:'🧫',
+    title:'Quinolones & Metronidazole',
+    badge:'Nucleic Acid Metabolism',
+    content:`
+<h3>A) Quinolones</h3>
+<p>Synthetic agents including:</p>
+<ul>
+  <li><strong>Fluoroquinolones:</strong> <span class="drug-tag">Ciprofloxacin</span> <span class="drug-tag">Ofloxacin</span> <span class="drug-tag">Norfloxacin</span></li>
+  <li><strong>Non-fluorinated quinolones:</strong> <span class="drug-tag">Nalidixic acid</span> <span class="drug-tag">Cinoxacin</span></li>
+</ul>
+<p>Act by interfering with the <strong>supercoiling of DNA</strong> due to inhibitory effect on <strong>topoisomerase II (DNA gyrase)</strong>.</p>
+<p><strong>Non-fluorinated quinolones</strong> have a <strong>narrow spectrum</strong> — use confined to UTI.</p>
+
+<h3>Fluoroquinolones Spectrum</h3>
+<p>Bactericidal — effective against gram –ve organisms (Enterobacteria, Pseudomonads, H. influenzae, Moraxella catarrhalis, Legionella, Chlamydia, most Mycobacterium) and some gram +ve organisms.</p>
+<p>Given orally, well absorbed from GIT. Concentrate in kidneys, prostate, and lungs; concentrate in phagocytes. <strong>Most cannot penetrate BBB except Pefloxacin and Ofloxacin</strong>.</p>
+<p>Aluminium and magnesium antacids interfere with absorption.</p>
+
+<h3>Clinical Uses of Fluoroquinolones</h3>
+<ul>
+  <li><strong>Complicated UTI</strong> (norfloxacin or ofloxacin)</li>
+  <li>Invasive external otitis caused by P. aeruginosa</li>
+  <li>Chronic gram –ve bacillary osteomyelitis</li>
+  <li>Eradication of S. typhi in carriers</li>
+  <li>Gonorrhoea (norfloxacin, ofloxacin)</li>
+  <li><strong>Bacterial prostatitis</strong> (norfloxacin)</li>
+  <li>Cervicitis (ofloxacin)</li>
+  <li>P. aeruginosa respiratory infections in cystic fibrosis</li>
+</ul>
+<p><strong>Unwanted effects:</strong> Mild and reversible — GI disturbances, skin rashes, headache, dizziness, and less frequently convulsions (with CNS pathology). Ciprofloxacin may lead to theophylline toxicity.</p>
+
+<h3>B) Metronidazole</h3>
+<p>An agent with <strong>antiprotozoal and some antibacterial</strong> activity. Acts by <strong>damaging the DNA</strong> of the microorganism by toxic oxygen products generated from the drug by the organism.</p>
+<p><strong>Pharmacokinetics:</strong> Rapidly and completely absorbed after oral administration; can be given IV. Distributed throughout body tissues and fluids, reaching high concentration in CSF. <strong>Excreted unchanged in the urine</strong>.</p>
+<p><strong>Drug of choice for:</strong> Entamoeba histolytica, Giardia lamblia, Trichomonas vaginalis infections; also for anaerobic cocci and gram –ve bacilli (e.g. Bacteroides species) and anaerobic gram +ve bacilli (Clostridia).</p>
+<p><strong>Unwanted effects:</strong> Mild — GI disturbances, metallic bitter taste, headache, dizziness. <strong>Interferes with alcohol metabolism</strong>. Should not be used during pregnancy.</p>
+`
+  }
+];
+
+// ══════════════════════════════════════════════════════
+// DATA — QUESTIONS (curated from all sheets)
+// ══════════════════════════════════════════════════════
+// Each section maps to an array of questions
+const QUESTIONS = {
+  intro: [
+    {type:'MCQ',q:'Bacterial resistance of Erythromycin is by:',opts:['Decrease drug accumulation','Enzymes production','Alternative pathway','Alteration drug binding site'],correct:'D'},
+    {type:'MCQ',q:'Selective toxicity of antimicrobial agent depends on:',opts:['Dose','Affinity','Biochemical differences between parasite and host cells','Immunity'],correct:'C'},
+    {type:'MCQ',q:'Antimicrobial agents are effective in treatment of infection because:',opts:['Selective toxicity','Non-selective toxicity','Unknown mechanism','Drug resistance'],correct:'A'},
+    {type:'TF',q:'Sulphonamides act as bacteriostatic.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Penicillins are bactericidal.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'Immunity status of the patient is important in:',opts:['Selection of antimicrobial agent','(a) and (b)','Killing of bacteria','All of the above'],correct:'A'},
+    {type:'TF',q:'Immunity status of the patient is important in selection of antimicrobial agent.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'Bacteriostatic agents:',opts:['Arrest growth of Bacteria','Kill the Bacteria','Limit the activity of antibiotic','(a) and (c)'],correct:'A'},
+    {type:'TF',q:'Site of infection is a parasite factor affecting the selection of antimicrobial agents.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Rifampin is:',opts:['Inhibit protein synthesis','Inhibit cell wall synthesis','Affect nucleic acid metabolism','Affect permeability of the cell membrane'],correct:'C'},
+    {type:'MCQ',q:'Agent affecting cell membrane permeability is:',opts:['Colistimethate','Polyethylene','Rifampicin','Ciprofloxacin'],correct:'A'},
+    {type:'TF',q:'Agents affect nucleic acid metabolism such as Rifampin and Quinolones.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'β-Lactamases lead to inactivation of:',opts:['Penicillins','Cephalosporins','(a) and (b)','None of the above'],correct:'C'},
+    {type:'MCQ',q:'β-lactamases cleave the β-lactam ring of:',opts:['Tetracycline and Erythromycin','Penicillins and Cephalosporins','Polymixin B and Colistimethate','Rifampin and Quinolones'],correct:'B'},
+    {type:'MCQ',q:'All the following are true for antimicrobial agents, EXCEPT:',opts:['Quinolones are synthetic antibiotics','Antibiotics are substances produced by rare species of microorganisms','Treatment of infection depends on selective toxicity','Sulphonamide acts as bacteriostatic'],correct:'B'},
+    {type:'MCQ',q:'Synthetic antibacterial agents such as:',opts:['Sulphonamides','Quinolones','Cephalosporins','All of the above','(a) and (b)'],correct:'E'},
+    {type:'TF',q:'Decreased drug accumulation in bacterium e.g. resistance to Tetracyclines.',opts:['True','False'],correct:'A'},
+  ],
+  sulphonamides: [
+    {type:'MCQ',q:'Drug used topically for infected burns is:',opts:['None of the above','Trimethoprim','Silver sulphadiazine','Penicillin'],correct:'C'},
+    {type:'MCQ',q:'Sulphasalazine:',opts:['Well absorption','Poor absorption','β-lactamase inhibitors','(b–c)'],correct:'B'},
+    {type:'MCQ',q:'Sulphadiazine is:',opts:['Short acting','Long acting','Less GIT absorption','(a–c)'],correct:'A'},
+    {type:'MCQ',q:'Drug used for Pneumocystis carinii pneumonia:',opts:['Sulphamethoxazole','Trimethoprim','Penicillin','Co-trimoxazole'],correct:'D'},
+    {type:'MCQ',q:'Sulphasalazine used as:',opts:['Antimalaria','Anti-inflammatory','For urinary tract infection','Topical application'],correct:'B'},
+    {type:'MCQ',q:'Sulphonamides are:',opts:['Pass into inflammatory exudates','Cross placental barrier','Reach the CSF','All the above'],correct:'D'},
+    {type:'MCQ',q:'Drug precipitating acetylated metabolites is:',opts:['None of the above','Penicillin','Sulphonamides','Azithromycin'],correct:'C'},
+    {type:'MCQ',q:'Drug antagonizing the Sulphonamides action is:',opts:['Aspirin','Procaine','Indomethacin','Penicillin'],correct:'B'},
+    {type:'TF',q:'Sulphonamides inhibit non-competitively dihydropteroate synthase.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Sulphonamides are not given topically.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Cyanosis is mild unwanted effect of Sulphonamides.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Sulphasalazine used as anti-inflammatory drug.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Mammalians obtain folic acid from their diet and do not need to synthesize it.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Sulphadimidine is long acting sulphonamide.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Sulphamethopyrazine is good absorption from GIT and short acting.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Silversulphadiazine is used:',opts:['Topical','Orally','I.V.','I.M.'],correct:'A'},
+    {type:'MCQ',q:'Co-trimoxazole is combination of:',opts:['Sulphadiazine with Trimethoprim','Sulphadimidine with Folic acid','Sulphamethoxazole with Trimethoprim','Trimoxazole with Trimethoprim'],correct:'C'},
+    {type:'MCQ',q:'Sulphonamide combined with pyrimethamine for treatment of drug resistant malaria + toxoplasmosis. Which of the following is ALSO a use?',opts:['Infected burns','Inflammatory bowel disease','All of the above','None of the above'],correct:'D'},
+    {type:'MCQ',q:'All the following are correct for sulphonamide, EXCEPT:',opts:['Crystalluria is serious unwanted effect','Cyanosis is mild unwanted effect','Easily cross the placental barrier','Given alone for treatment of malaria'],correct:'D'},
+    {type:'TF',q:'Antibacterial action of Sulphonamides is interfered with Lidocaine.',opts:['True','False'],correct:'B'},
+  ],
+  trimethoprim: [
+    {type:'MCQ',q:'Trimethoprim is:',opts:['Less tissues distributed','Fully GIT absorption','Weak acid','(b–c)'],correct:'B'},
+    {type:'TF',q:'Trimethoprim is a bacteriostatic agent.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Megaloblastic anaemia mainly occurs in treatment with Trimethoprim.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Trimethoprim elimination by kidneys increased by decreasing urinary pH.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Trimethoprim is not combined with other drugs.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Trimethoprim is structurally analogue for PABA.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Megaloblastic anaemia is:',opts:['Calcium deficiency','Iron deficiency','Folate deficiency','Decrease platelets synthesis'],correct:'C'},
+    {type:'MCQ',q:'PABA converted to folate by:',opts:['Dihydrofolate reductase','Dihydropteroate synthase','Tetrahydrofolate','DNA'],correct:'B'},
+    {type:'MCQ',q:'Megaloblastic anaemia is due to:',opts:['Vitamin B complex deficiency','Excessive urination','Folate deficiency','None of the above'],correct:'C'},
+    {type:'TF',q:'Megaloplastic anaemia due to trimethoprim is prevented by folic acid.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'Vit. B-complex deficiency is due to:',opts:['Unwanted effect of Tetracyclines','Unwanted effect of Chloramphenicol','Unwanted effect of Ciprofloxacin','None of the above'],correct:'D'},
+    {type:'TF',q:'Megaloblastic anaemia results as unwanted effect of Trimethoprim.',opts:['True','False'],correct:'A'},
+  ],
+  penicillins: [
+    {type:'MCQ',q:'Probenecid is:',opts:['Decrease penicillin action','Increase penicillin action','Stimulate secretion','(b–c)'],correct:'B'},
+    {type:'MCQ',q:'Super-infection caused by:',opts:['Sulphonamides','Penicillin','Trimethoprim','(b–c)'],correct:'B'},
+    {type:'MCQ',q:'Clavulanic acid is:',opts:['Increase penicillin resistance','Increase β-lactamase action','Decrease penicillin action','None'],correct:'D'},
+    {type:'MCQ',q:'Tazobactam:',opts:['Folate synthesis inhibitors','β-lactamase inhibitors','Protein synthesis inhibitors','None'],correct:'B'},
+    {type:'MCQ',q:'Augmentin is:',opts:['Amoxicillin + Ampicillin','Amoxicillin + Cloxacillin','Amoxicillin + Clavulanic acid','Ampicillin + Clavulanic acid'],correct:'C'},
+    {type:'MCQ',q:'Nafcillin can be given in renal failure because:',opts:['Excreted mainly by kidney','Excreted mainly in bile','Not metabolized','Given orally only'],correct:'B'},
+    {type:'MCQ',q:'β-lactamase inhibitors such as:',opts:['Tazobactam','Clavulanic acid','Sulbactam','All of the above'],correct:'D'},
+    {type:'MCQ',q:'Drugs are first choice for treatment of many infections:',opts:['Cephalosporins','Penicillins','Tetracyclines','Macrolides'],correct:'B'},
+    {type:'MCQ',q:'Super-infection produced by:',opts:['Micro-organism sensitive to Penicillins','Micro-organism not sensitive to Penicillins','(a) and (b)','None of the above'],correct:'B'},
+    {type:'MCQ',q:'Carbenicillin may cause:',opts:['Hypokalaemia','Hypocalcemia','Hyponatremia','None of the above'],correct:'A'},
+    {type:'MCQ',q:'The action of penicillin can be prolonged by addition of:',opts:['Probenecid','Sulbactam','Procaine','(b) and (d)'],correct:'A'},
+    {type:'MCQ',q:'In case of renal failure, the penicillin related drug that can be given:',opts:['Erythromycin','Ampicillin','Nafcillin','None of the above'],correct:'C'},
+    {type:'TF',q:'Penicillins are widely distributed in body fluids.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Injection of broad spectrum Penicillins may cause superinfection.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Probenecid decreases plasma drug concentration.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Benzyl Penicillin has a short half life.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Nafcillin is completely excreted in bile.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Augmentin is Ampicillin + Clavulanic acid.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Combination of Amoxicillin and Clavulanic acid produces Augmentin.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Penicillin is not given with food because food delays absorption.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'β-lactamase: what is the effect?',opts:['Increase cephalosporins action','Increase penicillin action','Decrease tetracycline action','None of the above'],correct:'D'},
+    {type:'MCQ',q:'Benzathine penicillin is:',opts:['Short half life','Prolonged action','Short action','(a and b)'],correct:'B'},
+    {type:'MCQ',q:'Drug cause Hypokalaemia is:',opts:['Cloxacillin','Pivmecillinam','Carbenicillin','None of the above'],correct:'C'},
+    {type:'MCQ',q:'All the following are correct EXCEPT:',opts:['Benzyl Penicillin has a short half life','Procaine Penicillin is fast release preparation','Benzathine Penicillin is slow release preparation','a and b'],correct:'B'},
+  ],
+  cephalosporins: [
+    {type:'MCQ',q:'Cephalexin is:',opts:['First generation cephalosporins','Third generation cephalosporins','Second generation cephalosporins','Fourth generation cephalosporins'],correct:'A'},
+    {type:'MCQ',q:'Cefoperazone is:',opts:['First generation cephalosporins','Third generation cephalosporins','Second generation cephalosporins','Fourth generation cephalosporins'],correct:'B'},
+    {type:'MCQ',q:'Cefuroxime is:',opts:['Second generation cephalosporins','Third generation cephalosporins','First generation cephalosporins','Fourth generation cephalosporins'],correct:'A'},
+    {type:'MCQ',q:'Third generation cephalosporins include:',opts:['Cefuroxime','Cephalexin','Ceftazidime','Cefazolin'],correct:'C'},
+    {type:'MCQ',q:'Drug crosses BBB and is good for meningitis:',opts:['Penicillins','Ceftriaxone','Cefepime','None'],correct:'B'},
+    {type:'MCQ',q:'Cephalosporins are:',opts:['Protein synthesis inhibitors','β-lactam antibiotics closely related to penicillins','Folate synthesis inhibitors','Nucleic acid inhibitors'],correct:'B'},
+    {type:'MCQ',q:'Patient allergic to penicillin can use:',opts:['Cephalosporins','Vancomycin','Aminoglycosides','None'],correct:'B'},
+    {type:'MCQ',q:'Cefazolin is:',opts:['Second generation cephalosporin','First generation cephalosporin','Third generation cephalosporin','Fourth generation cephalosporin'],correct:'B'},
+    {type:'MCQ',q:'Ceftazidime is:',opts:['First generation Cephalosporins','Second generation Cephalosporins','Third generation Cephalosporins','Fourth generation Cephalosporins'],correct:'C'},
+    {type:'MCQ',q:'Cefmetazole is:',opts:['Second generation cephalosporins','First generation cephalosporins','Not related to cephalosporins','Metronidazole derivative'],correct:'A'},
+    {type:'MCQ',q:'Cefamandole is:',opts:['First generation Cephalosporin','Third generation Cephalosporin','Second generation Cephalosporin','Fourth generation Cephalosporin'],correct:'C'},
+    {type:'MCQ',q:'Drugs cross-sensitive with Penicillins:',opts:['Sulphonamides','Cephalosporins','Aminoglycosides','Clindamycin'],correct:'B'},
+    {type:'TF',q:'Ceftazidime is third generation Cephalosporins.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cefepime is fourth generation cephalosporins.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cefotetan is a first generation Cephalosporin.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Cephalosporins are less resistant to β-lactamases than Penicillins.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Cefuroxime crosses BBB.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cephalothin is first generation Cephalosporins used for infection during surgery.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cephadroxil is first generation Cephalosporins.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cefuroxime can cross BBB.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Cefoxitin is first generation Cephalosporins.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Cephalosporins is synthetic antibiotic.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Ceftriaxone is:',opts:['First generation Cephalosporins','Second generation Cephalosporins','Third generation Cephalosporins','Sulphonamides'],correct:'C'},
+    {type:'MCQ',q:'Cefuroxime is good for:',opts:['Sinusitis','Otitis media','Meningitis','(a and b)','All of the above'],correct:'C'},
+  ],
+  carbapenems: [
+    {type:'MCQ',q:'Imipenem is:',opts:['Broad spectrum','Very broad spectrum','Given orally','(b–c)'],correct:'B'},
+    {type:'MCQ',q:'Imipenem is given:',opts:['Given orally','Given intravenously','Given topically','Given intramuscularly only'],correct:'B'},
+    {type:'MCQ',q:'Cilastatin is combined with:',opts:['Aztreonam','Sulphonamide','Cephalosporins','None (Imipenem)'],correct:'D'},
+    {type:'MCQ',q:'Drug showing abnormal liver function test is:',opts:['Aztreonam','Clindamycin','Penicillin','(a–b)'],correct:'A'},
+    {type:'MCQ',q:'Dehydropeptidase enzyme inhibitor is:',opts:['Aztreonam','Sulfacetam','Imipenem','None of the above'],correct:'D'},
+    {type:'MCQ',q:'Imipenem is combined with Cilastatin because:',opts:['Inhibit β-lactamase enzyme','Inhibit Dehydropeptidase enzyme','Stimulate pharmacological action','Prolonged action'],correct:'B'},
+    {type:'TF',q:'Imipenem combined with Cilastatin to inhibit Dehydropeptidase enzyme.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Imipenem has wide spectrum of antimicrobial activity.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Imipenem is broad spectrum antibiotic.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aztreonam resists most β-lactamases.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aztreonam may cause phlebitis.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aztreonam is toxic and broad spectrum.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Aztreonam active against gram –ve aerobic bacteria.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aztreonam mostly shows abnormal liver function test.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'Drug used for H. influenza is:',opts:['Aztreonam','Clavulanate','Penicillins','All'],correct:'A'},
+    {type:'TF',q:'Aztreonam given I.V and I.M against Haemophilus influenza.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Imipenem combined with Cilastatin for synergism.',opts:['True','False'],correct:'B'},
+  ],
+  vancomycin: [
+    {type:'MCQ',q:'Drug used for pseudomembranous colitis is:',opts:['Penicillin','Cephalosporins','Vancomycin','All'],correct:'C'},
+    {type:'MCQ',q:'Vancomycin is important because it is effective against:',opts:['Viral infections','Methicillin-resistant staphylococci','Fungal infections','Protozoa'],correct:'B'},
+    {type:'MCQ',q:'Vancomycin:',opts:['Has synergistic action with Penicillins','Has synergistic action with Aminoglycosides','Has synergistic action with Cephalosporins','None of the above'],correct:'B'},
+    {type:'MCQ',q:'Drug good against MRSA is:',opts:['Cephalexin','Cefonicid','Ceftazidime','Ceftriaxone','None of the above'],correct:'E'},
+    {type:'MCQ',q:'Vancomycin is given intravenous by slow infusion because:',opts:['Decrease Haemolysis','Decrease Histamine release','Increase drug stability','Prevent nephrotoxicity'],correct:'B'},
+    {type:'TF',q:'Vancomycin has action against Methicillin-resistance Staphylococcus.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Vancomycin is used in some cases of Endocarditis.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Vancomycin is given I.V. by slow infusion.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Vancomycin is used in treatment of Pseudomonas aureus colitis.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Vancomycin on its own does not kill the bacteria.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'For infected burns can be used:',opts:['Sulphasalazine','Trimethoprim','Silver sulphadiazine','None of the above'],correct:'C'},
+    {type:'MCQ',q:'For infective endocarditis can be used:',opts:['Vancomycin with Aminoglycosides','Gentamycin with Amoxicillin','Streptomycin with Penicillin','All of the above'],correct:'D'},
+  ],
+  tetracyclines: [
+    {type:'MCQ',q:'Tetracyclines form non-absorbable complex with:',opts:['Calcium','Aluminum','Cadmium','(a) and (b)'],correct:'D'},
+    {type:'MCQ',q:'Drugs forming unabsorbable complex with metal ions are:',opts:['Chloramphenicol','Macrolides','Tetracyclines','Penicillins'],correct:'C'},
+    {type:'MCQ',q:'Tetracyclines not administered with:',opts:['Water','Milk','Meat','Vegetables'],correct:'B'},
+    {type:'MCQ',q:'Doxycycline is excreted in:',opts:['Urine','Bile','Milk','GIT'],correct:'D'},
+    {type:'MCQ',q:'Vestibular disturbances caused by:',opts:['Minocycline','Chloramphenicol','Streptomycin','None of the above'],correct:'A'},
+    {type:'MCQ',q:'Drug of choice for Brucellosis:',opts:['Aminoglycosides','Penicillins','Tetracyclines','Chloramphenicol'],correct:'C'},
+    {type:'MCQ',q:'Antibiotic that chelates metal ions forming non-absorbable complex is:',opts:['Vancomycin','Aztreonam','Tetracycline','All of the above'],correct:'C'},
+    {type:'TF',q:'Tetracyclines have a very wide spectrum of activity.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Tetracyclines not given with milk.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Tetracyclines group excreted in urine and bile.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Minocycline may cause vestibular disturbances.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Tetracycline may cause superinfection.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Oxytetracycline largely excreted in gastrointestinal tract.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Lyme disease is treated by Tetracycline.',opts:['True','False'],correct:'A'},
+    {type:'MCQ',q:'Tetracycline is very wide spectrum antibiotic against:',opts:['Chlamydial infection','Most Protozoa (e.g. Amoeba)','Rickettsial infection','(a) and (c)'],correct:'D'},
+  ],
+  chloramphenicol_amino: [
+    {type:'MCQ',q:'Drug inhibit protein synthesis:',opts:['Vancomycin','Clindamycin','Trimethoprim','All'],correct:'B'},
+    {type:'MCQ',q:'Chloramphenicol Acetyltransferase is:',opts:['Stimulate Chloramphenicol action','Resistance to Chloramphenicol','Synthesis of Chloramphenicol'],correct:'B'},
+    {type:'MCQ',q:'Chloramphenicol used for:',opts:['Skin infection','Conjunctivitis','Meningitis','All of the above'],correct:'D'},
+    {type:'MCQ',q:'Chloramphenicol acts as:',opts:['Bacteriostatic','Bactericidal','(a and b)','Antiprotozoal'],correct:'C'},
+    {type:'MCQ',q:'Unwanted effect of Chloramphenicol is:',opts:['Pancytopenia','Gray baby syndrome','(a) and (b)','Reye\'s syndrome'],correct:'C'},
+    {type:'MCQ',q:'Toxic dose of Chloramphenicol leads to:',opts:['Pancytopenia','Anaemia','Leukopenia','Thrombocytopenia'],correct:'A'},
+    {type:'MCQ',q:'All the following are right about Aminoglycosides, EXCEPT:',opts:['Highly polar','Given parenterally','Cross BBB','Cross placenta','Excreted in urine'],correct:'C'},
+    {type:'MCQ',q:'Drug good for Tuberculosis is:',opts:['Streptomycin','Tobramycin','Gentamycin','Neomycin'],correct:'A'},
+    {type:'MCQ',q:'Kanamycin is used as:',opts:['Topically','Orally','I.V','I.M'],correct:'A'},
+    {type:'MCQ',q:'Nephrotoxicity:',opts:['Has been reported by Cephalosporin','Occur by high concentration of Aminoglycosides which accumulate in renal cortex','May occur with high doses of Imipenem','All of the above'],correct:'D'},
+    {type:'MCQ',q:'Tuberculosis is treated by:',opts:['Gentamycin','Amikacin','Kanamycin','Tobramycin','Streptomycin'],correct:'E'},
+    {type:'TF',q:'Chloramphenicol acts as Bacteriostatic.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aminoglycosides are given by parenteral route.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aminoglycosides cause ototoxicity.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Gentamycin acts by decreasing bacterial protein synthesis.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Aminoglycosides are well absorbed by oral administration.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Neomycin is used only topically due to their serious effects.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Kanamycin used only topically.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Very low doses of Chloramphenicol lead to Pancytopenia.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Pancytopenia caused by Chloramphenicol only in high dose.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Chloramphenicol cannot be used for skin infection.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Streptomycin is used for treatment of:',opts:['Ototoxicity','Endocarditis','Tuberculosis','Meningitis','Skin infection'],correct:'C'},
+    {type:'MCQ',q:'Streptomycin is used for:',opts:['Brucellosis','Tularemia','Chlamydia','(a and b)'],correct:'D'},
+  ],
+  macrolides_clindamycin: [
+    {type:'MCQ',q:'Drug used as alternative to penicillin in penicillin sensitive patients is:',opts:['Chloramphenicol','Tetracycline','Erythromycin','Clarithromycin'],correct:'C'},
+    {type:'MCQ',q:'Drug of choice for urogenital infections caused by Chlamydia:',opts:['Penicillins','Erythromycin','Amikacin','Chloramphenicol'],correct:'B'},
+    {type:'MCQ',q:'Azithromycin is:',opts:['Only against G-ve bacteria','Very Broad spectrum','Narrow spectrum','None'],correct:'B'},
+    {type:'MCQ',q:'Erythromycin mainly cause:',opts:['Allergy','Transient hearing disturbances','Nephrotoxicity','Hepatotoxicity'],correct:'B'},
+    {type:'MCQ',q:'Metabolism of Theophylline is affected by:',opts:['Clindamycin','Metronidazole','Erythromycin','Streptomycin'],correct:'C'},
+    {type:'MCQ',q:'Clarithromycin is:',opts:['Good for H. influenza','Good for Chlamydia','Good for Cervicitis','Good for Osteomyelitis'],correct:'A'},
+    {type:'MCQ',q:'Azithromycin is good against:',opts:['Only G-ve bacteria','Very Broad spectrum','Legionella specifically','None'],correct:'C'},
+    {type:'MCQ',q:'Orofacial infection treated by:',opts:['Penicillins','Clindamycin','Cyclosporine','Erythromycin'],correct:'B'},
+    {type:'MCQ',q:'Bacteroides fragilis treated by:',opts:['Clindamycin','Clarithromycin','Sulphonamides','Erythromycin'],correct:'A'},
+    {type:'MCQ',q:'The main examples of Macrolides are:',opts:['Azithromycin','Clarithromycin','(a) and (b)','Tetracycline'],correct:'C'},
+    {type:'MCQ',q:'Transient hearing disturbance is due to:',opts:['Clarithromycin','Tetracycline','Azithromycin','Clindamycin'],correct:'A'},
+    {type:'MCQ',q:'Clindamycin is:',opts:['Bacteriostatic','Bactericidal','(a and b)','Penetrate BBB'],correct:'A'},
+    {type:'TF',q:'Clarithromycin is useful in treatment of Lyme disease.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Azithromycin is good against Legionella.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Clarithromycin is good for Lyme disease.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Erythromycin diffuses readily to placenta but cannot penetrate blood brain barrier.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Macrolides used for treatment of common orofacial infections.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Macrolides are agents that inhibit cell wall synthesis.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Side effects of Clindamycin can be controlled mainly by Vancomycin.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Clindamycin does not cause Hepatotoxicity.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Clindamycin is drug of choice for treatment of brucellosis.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Clarithromycin acts as Bacteriostatic.',opts:['True','False'],correct:'A'},
+  ],
+  quinolones_metronidazole: [
+    {type:'MCQ',q:'Non-Fluoroquinolones are:',opts:['Broad spectrum','Good for many infections','Narrow spectrum','(b and c)'],correct:'C'},
+    {type:'MCQ',q:'Fluoroquinolones are:',opts:['Broad spectrum','(a) and (b)','All the above','Narrow spectrum'],correct:'A'},
+    {type:'MCQ',q:'Norfloxacin used for:',opts:['Complicated urinary tract infection','Osteomyelitis','Prostatitis','Cervicitis'],correct:'A'},
+    {type:'MCQ',q:'For complicated UTI (complicated use):',opts:['Norfloxacin or Ofloxacin','Nalidixic acid','Cinoxacin','Penicillin'],correct:'A'},
+    {type:'MCQ',q:'Drug for cervicitis:',opts:['Ofloxacin','Norfloxacin','None of the above','Cinoxacin'],correct:'A'},
+    {type:'MCQ',q:'Drug used for bacterial prostatitis:',opts:['Norfloxacin','Ofloxacin','Ciprofloxacin','Penicillin'],correct:'B'},
+    {type:'MCQ',q:'Ciprofloxacin not given with theophylline because:',opts:['Increase ciprofloxacin toxicity','Each drug increases toxicity of other','Increase theophylline toxicity','None of the above'],correct:'C'},
+    {type:'MCQ',q:'Metronidazole is:',opts:['Antiprotozoal','Antiprotozoal and antibacterial','Antiviral','Analgesic'],correct:'B'},
+    {type:'MCQ',q:'Metallic bitter taste is unwanted effect of:',opts:['Penicillin','Cephalosporins','Macrolide','Metronidazole'],correct:'D'},
+    {type:'MCQ',q:'Complicated urinary tract infection can use:',opts:['Lonidazole','Iodine','Quinolones','Penicillin'],correct:'C'},
+    {type:'MCQ',q:'Drug used for inflammatory bowel disease is:',opts:['Co-trimoxazole','Pyrimethamine','Sulfadiazine','Trimethoprim','None of the above'],correct:'E'},
+    {type:'TF',q:'Fluoroquinolones mainly used in urinary tract infection.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Nalidixic acid is narrow spectrum antibiotic.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Fluoroquinolones has mild side effects associated with CNS symptoms.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Ofloxacin does not penetrate blood brain barrier.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Cinoxacin use is confined to urinary tract infection.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Metronidazole interferes with alcohol metabolism.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Metronidazole is drug of choice for treating infections caused by Pseudomonas aeruginosa.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Osteomyelitis is treated mainly by Cinoxacin.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Non-Fluorinated Quinolones have a wide spectrum of activity.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Fluoroquinolones are bactericidal agents effective against gram+ve organisms and some gram -ve organisms.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Nalidixic acid is confined to use in urinary tract infection.',opts:['True','False'],correct:'A'},
+    {type:'TF',q:'Norfloxacin is good for Prostatitis.',opts:['True','False'],correct:'B'},
+    {type:'MCQ',q:'Metallic bitter taste is unwanted effect of:',opts:['Ciprofloxacin','Metronidazole','Nalidixic acid','Kanamycin'],correct:'B'},
+    {type:'TF',q:'Metallic bitter taste is serious side effect caused by Metronidazole.',opts:['True','False'],correct:'B'},
+    {type:'TF',q:'Metronidazole is an agent with antiprotozoal and some antibacterial activity.',opts:['True','False'],correct:'A'},
+  ]
+};
+
+// ══════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════
+let openedSections = new Set();
+let revealedCards = new Set();
+let currentFilter = 'all';
+
+// ══════════════════════════════════════════════════════
+// BUILD DOM
+// ══════════════════════════════════════════════════════
+function buildTOC(){
+  const grid = document.getElementById('tocGrid');
+  SECTIONS.forEach(s => {
+    const a = document.createElement('div');
+    a.className = 'toc-item';
+    a.innerHTML = `<div class="toc-dot"></div>${s.icon} ${s.title}`;
+    a.onclick = () => {
+      const el = document.getElementById('sec-'+s.id);
+      if(el){ el.scrollIntoView({behavior:'smooth',block:'start'}); openSection(s.id); }
+    };
+    grid.appendChild(a);
+  });
+}
+
+function buildSections(){
+  const area = document.getElementById('contentArea');
+  SECTIONS.forEach(s => {
+    const qList = QUESTIONS[s.id] || [];
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    block.id = 'sec-'+s.id;
+
+    const mcqCount = qList.filter(q=>q.type==='MCQ').length;
+    const tfCount = qList.filter(q=>q.type==='TF').length;
+
+    block.innerHTML = `
+      <div class="section-header" onclick="toggleSection('${s.id}')">
+        <div class="sec-icon">${s.icon}</div>
+        <div class="sec-title-wrap">
+          <div class="sec-title">${s.title}</div>
+          <div class="sec-badge">${s.badge}</div>
+        </div>
+        <div class="sec-progress">${qList.length} Qs</div>
+        <span class="sec-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="content-panel">${s.content}</div>
+        <div class="qa-panel">
+          <div class="qa-header">
+            <span>📝 ${qList.length} Questions — ${mcqCount} MCQ · ${tfCount} T/F</span>
+            <button class="show-answers-btn" id="revbtn-${s.id}" onclick="toggleReveal('${s.id}')">Show Answers</button>
+          </div>
+          <ul class="q-options" id="qlist-${s.id}"></ul>
+        </div>
+      </div>
+    `;
+    area.appendChild(block);
+    renderQuestions(s.id, qList);
+  });
+
+  updateStats();
+}
+
+function renderQuestions(secId, qList){
+  const container = document.getElementById('qlist-'+secId);
+  if(!container) return;
+  container.innerHTML = '';
+
+  const filter = currentFilter;
+  const search = document.getElementById('searchInput').value.toLowerCase();
+
+  qList.forEach((q,i) => {
+    if(filter === 'mcq' && q.type !== 'MCQ') return;
+    if(filter === 'tf' && q.type !== 'TF') return;
+    if(filter === 'content') return; // hide all questions in content-only mode
+
+    if(search && !q.q.toLowerCase().includes(search) &&
+       !q.opts.some(o => o.toLowerCase().includes(search))) return;
+
+    const cardId = `${secId}-q${i}`;
+    const revealed = revealedCards.has(cardId);
+    const letters = ['A','B','C','D','E','F'];
+
+    const li = document.createElement('li');
+    li.style.listStyle = 'none';
+
+    const card = document.createElement('div');
+    card.className = `q-card${revealed ? ' open' : ''}`;
+    card.id = 'card-'+cardId;
+
+    let optsHtml = '';
+    q.opts.forEach((opt,oi) => {
+      const letter = letters[oi];
+      const isCorrect = letter === q.correct && revealed;
+      optsHtml += `<li class="${isCorrect ? 'correct-opt' : ''}"><span class="opt-letter">${letter}.</span> ${opt}</li>`;
+    });
+
+    card.innerHTML = `
+      <div class="q-head" onclick="toggleCard('${secId}','${i}')">
+        <span class="q-num">${i+1}.</span>
+        <span class="q-type-badge badge-${q.type.toLowerCase()}">${q.type}</span>
+        <span class="q-text">${q.q}</span>
+        <span class="q-toggle">▼</span>
+      </div>
+      <div class="q-body">
+        <ul class="q-options">${optsHtml}</ul>
+        ${revealed ? `<div class="q-answer-line">✓ Answer: <strong>${q.correct} — ${q.opts[letters.indexOf(q.correct)]}</strong></div>` : `<div class="q-answer-line" style="color:var(--text-dim);font-size:12px">Click "Show Answers" above to reveal.</div>`}
+      </div>
+    `;
+    li.appendChild(card);
+    container.appendChild(li);
+  });
+}
+
+function toggleCard(secId, idx){
+  const cardId = `${secId}-q${idx}`;
+  const card = document.getElementById('card-'+cardId);
+  if(!card) return;
+  card.classList.toggle('open');
+}
+
+function toggleSection(id){
+  const block = document.getElementById('sec-'+id);
+  if(!block) return;
+  const isOpen = block.classList.contains('open');
+  if(!isOpen){
+    block.classList.add('open');
+    openedSections.add(id);
+    document.getElementById('openedCount').textContent = openedSections.size;
+    saveProgress();
+  } else {
+    block.classList.remove('open');
+  }
+  updateProgressBar();
+}
+
+function openSection(id){
+  const block = document.getElementById('sec-'+id);
+  if(block && !block.classList.contains('open')){
+    block.classList.add('open');
+    openedSections.add(id);
+    document.getElementById('openedCount').textContent = openedSections.size;
+    updateProgressBar();
+    saveProgress();
+  }
+}
+
+function toggleReveal(secId){
+  const btn = document.getElementById('revbtn-'+secId);
+  const qList = QUESTIONS[secId] || [];
+  const cardIds = qList.map((_,i) => `${secId}-q${i}`);
+  const allRevealed = cardIds.every(id => revealedCards.has(id));
+
+  if(allRevealed){
+    cardIds.forEach(id => revealedCards.delete(id));
+    btn.classList.remove('revealed');
+    btn.textContent = 'Show Answers';
+  } else {
+    cardIds.forEach(id => revealedCards.add(id));
+    btn.classList.add('revealed');
+    btn.textContent = 'Hide Answers';
+    document.getElementById('revealedCount').textContent = revealedCards.size;
+  }
+  renderQuestions(secId, qList);
+  // Reopen all expanded cards
+  qList.forEach((_,i) => {
+    const card = document.getElementById(`card-${secId}-q${i}`);
+    if(card) card.classList.add('open');
+  });
+  saveProgress();
+}
+
+function expandAll(){
+  SECTIONS.forEach(s => openSection(s.id));
+}
+
+function collapseAll(){
+  SECTIONS.forEach(s => {
+    const block = document.getElementById('sec-'+s.id);
+    if(block) block.classList.remove('open');
+  });
+}
+
+function revealAllAnswers(){
+  SECTIONS.forEach(s => {
+    const qList = QUESTIONS[s.id] || [];
+    qList.forEach((_,i) => revealedCards.add(`${s.id}-q${i}`));
+    const btn = document.getElementById('revbtn-'+s.id);
+    if(btn){ btn.classList.add('revealed'); btn.textContent = 'Hide Answers'; }
+    renderQuestions(s.id, qList);
+    qList.forEach((_,i) => {
+      const card = document.getElementById(`card-${s.id}-q${i}`);
+      if(card) card.classList.add('open');
+    });
+  });
+  document.getElementById('revealedCount').textContent = revealedCards.size;
+  saveProgress();
+}
+
+function resetProgress(){
+  openedSections.clear();
+  revealedCards.clear();
+  SECTIONS.forEach(s => {
+    const block = document.getElementById('sec-'+s.id);
+    if(block) block.classList.remove('open');
+    const btn = document.getElementById('revbtn-'+s.id);
+    if(btn){ btn.classList.remove('revealed'); btn.textContent = 'Show Answers'; }
+    renderQuestions(s.id, QUESTIONS[s.id]||[]);
+  });
+  document.getElementById('openedCount').textContent = 0;
+  document.getElementById('revealedCount').textContent = 0;
+  updateProgressBar();
+  localStorage.removeItem('amStudyProgress');
+}
+
+function updateProgressBar(){
+  const pct = Math.round((openedSections.size / SECTIONS.length) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = pct + '%';
+}
+
+function updateStats(){
+  let total = 0;
+  SECTIONS.forEach(s => total += (QUESTIONS[s.id]||[]).length);
+  document.getElementById('totalQ').textContent = total;
+}
+
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input', function(){
+  const val = this.value.toLowerCase();
+  let anyVisible = false;
+
+  SECTIONS.forEach(s => {
+    const block = document.getElementById('sec-'+s.id);
+    const qList = QUESTIONS[s.id] || [];
+
+    if(!val){
+      block.classList.remove('hidden');
+      renderQuestions(s.id, qList);
+      anyVisible = true;
+      return;
+    }
+
+    const contentMatch = s.title.toLowerCase().includes(val) || s.content.toLowerCase().includes(val);
+    const qMatch = qList.some(q =>
+      q.q.toLowerCase().includes(val) ||
+      q.opts.some(o => o.toLowerCase().includes(val))
+    );
+
+    if(contentMatch || qMatch){
+      block.classList.remove('hidden');
+      anyVisible = true;
+      renderQuestions(s.id, qList);
+      if(qMatch && !block.classList.contains('open')) openSection(s.id);
+    } else {
+      block.classList.add('hidden');
+    }
+  });
+
+  document.getElementById('emptyState').classList.toggle('show', !anyVisible);
+});
+
+// ── FILTER BUTTONS ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentFilter = this.dataset.filter;
+    SECTIONS.forEach(s => renderQuestions(s.id, QUESTIONS[s.id]||[]));
+  });
+});
+
+// ── PERSIST ──
+function saveProgress(){
+  try{
+    localStorage.setItem('amStudyProgress', JSON.stringify({
+      opened: [...openedSections],
+      revealed: [...revealedCards]
+    }));
+  }catch(e){}
+}
+
+function loadProgress(){
+  try{
+    const d = JSON.parse(localStorage.getItem('amStudyProgress')||'{}');
+    if(d.opened) d.opened.forEach(id => openedSections.add(id));
+    if(d.revealed) d.revealed.forEach(id => revealedCards.add(id));
+  }catch(e){}
+}
+
+// ── INIT ──
+loadProgress();
+buildTOC();
+buildSections();
+
+// Apply loaded state
+openedSections.forEach(id => {
+  const block = document.getElementById('sec-'+id);
+  if(block) block.classList.add('open');
+});
+revealedCards.forEach(cardId => {
+  const parts = cardId.split('-q');
+  if(parts.length === 2){
+    const secId = parts[0], i = parts[1];
+    const card = document.getElementById('card-'+cardId);
+    // Will be re-rendered correctly
+  }
+});
+SECTIONS.forEach(s => renderQuestions(s.id, QUESTIONS[s.id]||[]));
+document.getElementById('openedCount').textContent = openedSections.size;
+document.getElementById('revealedCount').textContent = revealedCards.size;
+updateProgressBar();
+</script>
+</body>
+</html>
